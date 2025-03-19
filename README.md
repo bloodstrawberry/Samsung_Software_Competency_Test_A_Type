@@ -3,6 +3,6 @@
 
    
    
-강의 링크 (https://inf.run/9CR8T)
+강의 링크 (https://inf.run/EpPoo)
 
 [![Uploaded Image](https://github.com/user-attachments/assets/d123c5bf-47dd-4162-b9fd-be9b6f7f5cbe)](https://inf.run/9CR8T)
