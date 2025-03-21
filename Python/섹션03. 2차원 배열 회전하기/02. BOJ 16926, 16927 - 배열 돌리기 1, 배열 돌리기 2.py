@@ -14,11 +14,11 @@ arr = [RC(0, 0) for _ in range(MAX * MAX)]
 
 def input_data():
     for r in range(1, N + 1):
-        MAP[r][1:N + 1] = map(int, input().split())
+        MAP[r][1:M + 1] = map(int, input().split())
 
 def print_map():
     for r in range(1, N + 1):
-        print(" ".join(map(str, MAP[r][1:M + 1])))
+        print(*MAP[r][1:M + 1])
 
 def rotate_step(sr, sc, n, m, rotate_count):
     er = sr + n - 1

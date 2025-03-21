@@ -13,7 +13,7 @@ def input_data():
 
 def print_map():
     for r in range(1, N + 1):
-        print(" ".join(map(str, MAP[r][1:N + 1])))
+        print(*MAP[r][1:N + 1])
 
 def rotate_45_clockwise():
     temp = copy.deepcopy(MAP)
