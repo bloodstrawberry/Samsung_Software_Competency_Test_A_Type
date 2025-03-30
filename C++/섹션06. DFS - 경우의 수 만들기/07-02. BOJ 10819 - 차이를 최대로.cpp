@@ -2,7 +2,7 @@
 
 #define MAX (8 + 3)
 
-int N, M;
+int N;
 
 int num_of_cases[MAX];
 bool visit[MAX];
@@ -12,7 +12,7 @@ int maxAnswer;
 
 void printCases()
 {
-	for (int i = 0; i < M; i++) printf("%d ", num_of_cases[i]);
+	for (int i = 0; i < N; i++) printf("%d ", num_of_cases[i]);
 	putchar('\n');
 }
 
