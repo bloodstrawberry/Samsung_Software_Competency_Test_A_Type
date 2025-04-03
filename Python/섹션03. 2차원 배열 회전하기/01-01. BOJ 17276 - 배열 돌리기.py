@@ -14,6 +14,7 @@ def input_data():
 def print_map():
     for r in range(1, N + 1):
         print(*MAP[r][1:N + 1])
+    print("")
 
 def rotate_45():
     temp = copy.deepcopy(MAP)
