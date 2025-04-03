@@ -24,6 +24,7 @@ def input_data():
 def print_map():
     for r in range(1, S + 1):
         print(*MAP[r][1:S + 1])
+    print("")
                 
 def flip_up_down_divide(sr, sc, size):
     for r in range(size):

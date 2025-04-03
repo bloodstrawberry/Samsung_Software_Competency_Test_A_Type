@@ -23,6 +23,7 @@ def input_data():
 def print_map(): # for debug
     for r in range(1, V + 1):
         print(*MAP[r][:index[r]])
+    print("")
 
 def BFS(node):
     rp, wp = 0, 0

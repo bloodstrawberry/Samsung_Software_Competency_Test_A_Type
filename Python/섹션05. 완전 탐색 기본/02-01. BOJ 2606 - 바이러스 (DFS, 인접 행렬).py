@@ -18,6 +18,7 @@ def input_data():
 def print_map(): # for debug
     for r in range(1, V + 1):
         print(*MAP[r][1:V + 1])
+    print("")
 
 def DFS(node):      
     global count

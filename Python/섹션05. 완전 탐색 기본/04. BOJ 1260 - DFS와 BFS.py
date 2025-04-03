@@ -17,6 +17,7 @@ def input_data():
 def print_map(): # for debug
     for r in range(1, N + 1):
         print(*MAP[r][1:N + 1])
+    print("")
 
 def DFS(node):
     visit[node] = True

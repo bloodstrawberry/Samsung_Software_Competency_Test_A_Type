@@ -21,6 +21,7 @@ def input_data():
 def print_map():
     for r in range(1, N + 1):
         print(*MAP[r][1:M + 1])
+    print("")
                 
 def flip_up_down():
     temp = copy.deepcopy(MAP)

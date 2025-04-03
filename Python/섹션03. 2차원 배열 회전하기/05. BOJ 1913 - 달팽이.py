@@ -11,6 +11,7 @@ K = int(input())
 def print_map():
     for r in range(1, N + 1):
         print(*MAP[r][1:N + 1])
+    print("")
 
 def make_snail():
     r = c = ansR = ansC = (N + 1) // 2

@@ -19,6 +19,7 @@ def input_data():
 def print_map():
     for r in range(1, N + 1):
         print(*MAP[r][1:M + 1])
+    print("")
 
 def rotate_step(sr, sc, n, m, rotate_count):
     er = sr + n - 1
