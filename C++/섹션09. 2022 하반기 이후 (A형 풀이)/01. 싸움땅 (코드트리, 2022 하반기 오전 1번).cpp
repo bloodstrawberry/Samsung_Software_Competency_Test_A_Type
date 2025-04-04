@@ -110,7 +110,7 @@ int battle(PLAYER p1, PLAYER p2)
 
 void simulate()
 {
-	int changDir[4] = { 2, 3, 0, 1 };
+	int changeDir[4] = { 2, 3, 0, 1 };
 
 	for (int k = 0; k < K; k++)
 	{
@@ -141,14 +141,14 @@ void simulate()
 			// 1-1. 격자를 벗어나는 경우, 반대 방향으로 변경 후 이동
 			if (nr < 1 || nc < 1 || nr > N || nc > N)
 			{
-				dir = changDir[dir];
+				dir = changeDir[dir];
 				player[m].dir = dir;
 
 				nr = p.r + dr[dir];
 				nc = p.c + dc[dir];
 			}
 
-			// 2-1. 이동할 방향에 플레이어가 있는지 체크,
+			// 2-1. 이동할 방향에 플레이어가 있는지 체크
 			if (tmpMAP[nr][nc] == 0) // 없는 경우
 			{
 				// tmpMAP에서 이동
@@ -195,6 +195,7 @@ void simulate()
 				// 2-2-1. 점수 획득
 				SCORE[winner]
 					+= ((player[winner].gun + player[winner].s)) - ((player[loser].gun + player[loser].s));
+
 
 				// 2-2-2. 패배한 플레이어
 				int loserGun = player[loser].gun;
