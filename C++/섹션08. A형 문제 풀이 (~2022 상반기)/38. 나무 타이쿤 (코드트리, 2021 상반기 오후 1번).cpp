@@ -94,12 +94,12 @@ void insert()
 
 void grow()
 {
-	for (int i = 0; i < scnt; i++)
+	for (int s = 0; s < scnt; s++)
 	{
 		int r, c;
 
-		r = supplement[i].r;
-		c = supplement[i].c;
+		r = supplement[s].r;
+		c = supplement[s].c;
 
 		int count = 0;
 		for (int i = 0; i < 4; i++)
