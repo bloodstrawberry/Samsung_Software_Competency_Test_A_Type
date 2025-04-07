@@ -56,7 +56,7 @@ void printMap() // for debug
 {
 	for (int r = 1; r <= N; r++)
 	{
-		for (int c = 1; c <= M; c++)
+		for (int c = 1; c <= N; c++)
 			printf("%d ", MAP[r][c]);
 		putchar('\n');
 	}
@@ -143,3 +143,4 @@ int main()
 	}
 
 	return 0;
+}

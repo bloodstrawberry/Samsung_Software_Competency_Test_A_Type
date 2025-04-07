@@ -45,9 +45,8 @@ void input()
 
 void printAtom() // for debug
 {
-	scanf("%d %d %d", &N, &M, &K);
 	for (int i = 0; i < acnt; i++)
-		printf("%d %d %d %d %d", atom[acnt].r, atom[acnt].c, atom[acnt].m, atom[acnt].s, atom[acnt].d);		
+		printf("%d %d %d %d %d", atom[i].r, atom[i].c, atom[i].m, atom[i].s, atom[i].d);		
 	putchar('\n');
 }
 

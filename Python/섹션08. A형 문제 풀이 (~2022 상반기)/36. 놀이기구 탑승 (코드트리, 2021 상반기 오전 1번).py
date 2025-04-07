@@ -1,112 +1,113 @@
-import copy
+MAX = 20 + 5
+INF = 0x7fff0000
 
-MAX = 100 + 20
+WALL = -1
 
-class MOLD:
-    def __init__(self, distance: int, direction: int, size: int):
-        self.distance = distance
-        self.direction = direction
-        self.size = size
+MAP = [[0] * MAX for _ in range(MAX)]
 
-mold = [[MOLD(0, 0, 0) for _ in range(MAX)] for _ in range(MAX)]
-tmpMold = [[MOLD(0, 0, 0) for _ in range(MAX)] for _ in range(MAX)]
+student = [0] * (MAX * MAX)
+love = [[False] * (MAX * MAX) for _ in range(MAX * MAX)]
 
-# -, 위, 아래, 오른쪽, 왼쪽
-dr = [0, -1, 1, 0, 0]
-dc = [0, 0, 0, 1, -1]
+# ↑, →, ↓, ←
+dr = [-1, 0, 1, 0]
+dc = [0, 1, 0, -1]
+
+class SEAT:
+    def __init__(self, like: int, empty: int, r: int, c: int):
+        self.like = like # 주변의 좋아하는 친구 수
+        self.empty = empty # 주변의 빈 자리 수
+        self.r = r
+        self.c = c
 
 def input_data():
-    global N, M, K, mold
+    global N, MAP, love
     
-    N, M, K = map(int, input().split())
+    N = int(input())
+    
+    MAP = [[WALL] * MAX for _ in range(MAX)]
 
-    mold = [[MOLD(0, 0, 0) for _ in range(MAX)] for _ in range(MAX)]
+    for r in range(1, N + 1):
+        for c in range(1, N + 1):
+            MAP[r][c] = 0
 
-    for _ in range(K):
-        r, c, s, d, b = map(int, input().split())
-        mold[r][c] = MOLD(s, d, b)
-
+    love = [[False] * (MAX * MAX) for _ in range(MAX * MAX)]
+    
+    for i in range(N * N):
+        num, one, two, three, four = map(int, input().split())
+        
+        student[i] = num
+        love[num][one] = True
+        love[num][two] = True
+        love[num][three] = True
+        love[num][four] = True
+        
 def print_map(): # for debug
     for r in range(1, N + 1):
-        for c in range(1, M + 1):
-            print(mold[r][c].size, end=' ')
-        print()
-    print()        
+        print(*MAP[r][1:N + 1])
+    print("")        
 
-# 2. 곰팡이 채취
-def catch_mold(sc):
-    # 2-1. 해당 열의 위치에서 아래로 내려가며
-    for r in range(1, N + 1):
-        # 2-2. 가장 먼저 발견한 곰팡이를 채취
-        if mold[r][sc].size != 0:
-            ret = mold[r][sc].size
-            
-            # 2-3. 곰팡이를 채취하고 나면 해당 칸은 빈칸
-            mold[r][sc].size = 0
-            
-            return ret
+def get_seat_info(index, r, c):
+    like, empty = 0, 0
+    for i in range(4):
+        nr = r + dr[i]
+        nc = c + dc[i]
         
-    return 0
+        if MAP[nr][nc] == WALL: continue
+        
+        if MAP[nr][nc] == 0: empty += 1
+        elif love[index][MAP[nr][nc]] == True: like += 1
+        
+    return SEAT(like, empty, r, c)
 
-def move_mold():
-    global mold
+# a가 우선순위가 더 높으면 true
+def is_priority(a, b):
+    if a.like != b.like: return a.like > b.like
+    if a.empty != b.empty: return a.empty > b.empty
+    if a.r != b.r: return a.r < b.r
     
-    tmpMold = [[MOLD(0, 0, 0) for _ in range(MAX)] for _ in range(MAX)]
-    
-    change_dir = [0, 2, 1, 4, 3]
-
-    for r in range(1, N + 1):
-        for c in range(1, M + 1):
-            if mold[r][c].size == 0: continue
-            
-            md = mold[r][c]
-            
-            sr, sc, dir = r, c, md.direction
-            
-            move = md.distance
-            
-            # 4-1. 곰팡이 이동
-            for m in range(move):
-                nr = sr + dr[dir]
-                nc = sc + dc[dir]
-                
-                # 4-2. 방향 변경
-                if nr < 1 or nc < 1 or nr > N or nc > M:
-                    dir = change_dir[dir]
-                    
-                    nr = sr + dr[dir]
-                    nc = sc + dc[dir]
-                
-                sr, sc = nr, nc
-
-            # 5. 이동 후, 한 칸에 곰팡이가 두마리 이상일 경우, 큰 곰팡이만 남기기
-            # 이동할 위치 (sr, sc), 이동 전 위치의 곰팡이는 (r, c)
-            if tmpMold[sr][sc].size < mold[r][c].size:
-                tmpMold[sr][sc].distance = mold[r][c].distance
-                tmpMold[sr][sc].direction = dir
-                tmpMold[sr][sc].size = mold[r][c].size
-
-    for r in range(1, N + 1):
-        for c in range(1, M + 1):
-            mold[r][c] = MOLD(tmpMold[r][c].distance, 
-                             tmpMold[r][c].direction, 
-                             tmpMold[r][c].size)
+    return a.c < b.c
 
 def simulate():
-    sum = 0
-    # 1. 승용이는 첫번째 열부터 탐색을 시작
-    for c in range(1, M + 1):
-        # 2. 곰팡이 채취
-        sum += catch_mold(c)
+    for i in range(N * N):
+        index = student[i]
         
-        # 3. 곰팡이 이동 시작
-        move_mold()
+        wanted = SEAT(0, 0, INF, INF)
+        for r in range(1, N + 1):
+            for c in range(1, N + 1):
+                if MAP[r][c] != 0: continue
+                
+                tmp = get_seat_info(index, r, c)
+                
+                if is_priority(tmp, wanted): 
+                    wanted = tmp
+                
+        MAP[wanted.r][wanted.c] = index
+
+def get_answer():
+    board = [0, 1, 10, 100, 1000]
     
-    return sum
+    score = 0
+    for r in range(1, N + 1):
+        for c in range(1, N + 1):
+            index = MAP[r][c]
+            count = 0
+            for i in range(4):
+                nr = r + dr[i]
+                nc = c + dc[i]
+                
+                if MAP[nr][nc] == WALL: continue
+                
+                if love[index][MAP[nr][nc]]: count += 1
+                
+            score += board[count]
+            
+    return score
 
 # T = int(input())
 T = 1
-for tc in range(T):   
+for tc in range(T):    
     input_data()
     
-    print(simulate())
+    simulate()
+    
+    print(get_answer())
