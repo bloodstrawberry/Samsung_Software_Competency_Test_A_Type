@@ -118,7 +118,7 @@ def setEmptyCount():
                 
 # T = int(input())
 T = 1
-for _ in range(T): 
+for tc in range(T): 
     global max_answer
     
     input_data()     

@@ -107,7 +107,7 @@ def simulate():
                 
 # T = int(input())
 T = 1
-for _ in range(T):
+for tc in range(T):
     input_data()     
     
     simulate()            
