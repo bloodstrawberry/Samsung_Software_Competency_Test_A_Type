@@ -372,11 +372,7 @@ void simulate()
 		morning();
 		lunch();
 		dinner();
-
-		for (int r = 1; r <= N; r++)
-			for (int c = 1; c <= N; c++)
-				if (student[r][c].defense != 0) student[r][c].defense--;
-
+		
 		printAnswer();
 	}
 }
