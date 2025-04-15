@@ -385,7 +385,7 @@ void simulate()
 
 int main()
 {
-	// scanf("%d", &T);
+	// scanf("%d", &TestCase);
 	TestCase = 1;
 	for (int tc = 1; tc <= TestCase; tc++)
 	{
